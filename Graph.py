@@ -44,8 +44,10 @@ class Graph:
             self.add_vertex(j)
         except Exception:
             pass
-        if (i, j) in self.edge_dict.keys() or (j, i) in self.edge_dict.keys():
-            raise Exception("The Graph already has an edge with these vertexes")
+        if (j, i) in self.edge_dict.keys():
+            (i, j) = (j, i)
+        if (i, j) in self.edge_dict.keys() and self.edge_dict[(i, j)] == weight:
+            raise Exception("The Graph already has an edge with these vertexes and this weight")
         self.edge_dict[(i, j)] = weight
         for key, val in self.neighbours_dict.items():
             if key == i:
@@ -64,7 +66,3 @@ class Graph:
             if not self.neighbours_dict[key] >= graph_2.neighbours_dict[key]:
                 return False
         return True
-
-
-
-
